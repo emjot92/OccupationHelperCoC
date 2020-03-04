@@ -28,9 +28,10 @@ namespace Occupations.Parsers
             var occupations = new List<Occupation>();
             foreach(var record in records)
             {
-                var splitted = record.Split("   ");
+                var splitted = record.Split('\t');
                 if(splitted.Count() == 7)
                 {
+                    Enum.TryParse<OccupationType>(splitted[6], out OccupationType occupationType);
                     var occupation = new Occupation
                     {
                         Name = splitted[0],
@@ -39,7 +40,7 @@ namespace Occupations.Parsers
                         MinCredit = int.Parse(splitted[3].Trim()),
                         MaxCredit = int.Parse(splitted[4].Trim()),
                         Skills = splitted[5],
-                        OccupationType = Enum.Parse<OccupationType>(splitted[6])
+                        OccupationType = occupationType
                     };
                     occupations.Add(occupation);
                 }
@@ -49,15 +50,18 @@ namespace Occupations.Parsers
 
         private async Task<string> ReadOneRecordAsync(StreamReader reader)
         {
-            string line = null;
+            string line = string.Empty;
             string record = string.Empty;
-            var occupationTypesList = Enum.GetNames(typeof(OccupationType)).Select(t => $"    {t}");
+            var occupationTypesList = Enum.GetNames(typeof(OccupationType)).Select(t => $"\t{t}");
             do
             {
                 line = await reader.ReadLineAsync();
+                //if (line == null)
+                //    line = string.Empty;
                 record += line;
+                var b = occupationTypesList.Select(t => line.EndsWith(t)).Any();
             }
-            while (occupationTypesList.Select(t => line.EndsWith(t)).Any());
+            while (line != null && !occupationTypesList.Select(t => line.EndsWith(t)).Any(x => x));
             return record;
         }
     }

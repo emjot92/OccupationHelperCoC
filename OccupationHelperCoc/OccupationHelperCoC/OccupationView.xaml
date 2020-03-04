@@ -4,9 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OccupationHelperCoC"
+             xmlns:wpfautogrid="clr-namespace:WpfAutoGrid;assembly=WpfAutoGrid"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <GroupBox Header="Occupation Info">
+        <wpfautogrid:AutoGrid RowCount="7" Rows="" RowHeight="Auto" ColumnCount="2" ColumnWidth="*" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label Content="Name"/>
+            <TextBlock x:Name="NameTextBlock"/>
+            <Label Content="Description"/>
+            <TextBlock x:Name="DescriptionTextBlock"/>
+            <Label Content="Skill Points"/>
+            <TextBlock x:Name="OccupationSkillPointsTextBlock"/>
+            <Label Content="Min Credit"/>
+            <TextBlock x:Name="MinCreditTextBlock"/>
+            <Label Content="Max Credit"/>
+            <TextBlock x:Name="MaxCreditTextBlock"/>
+            <Label Content="Skills"/>
+            <TextBlock x:Name="SkillsTextBlock"/>
+            <Label Content="Occupation Type"/>
+            <TextBlock x:Name="OccupationTypeTextBlock"/>
+        </wpfautogrid:AutoGrid>
+    </GroupBox>
 </UserControl>

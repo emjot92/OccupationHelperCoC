@@ -10,25 +10,46 @@
     mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <mah:MetroWindow.Resources>
-        <Style TargetType="wpfautogrid:AutoGrid" BasedOn="{StaticResource {x:Type wpfautogrid:AutoGrid}}">
+        <Style TargetType="wpfautogrid:AutoGrid">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="ChildHorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="ChildVerticalAlignment" Value="Stretch"/>
         </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <DataTemplate x:Key="OccupationTypeItemTemplate" >
+            <WrapPanel>
+                <CheckBox Focusable="False" IsChecked="{Binding IsChecked}" VerticalAlignment="Center" />
+                <ContentPresenter Content="{Binding Name, Mode=OneTime}" />
+            </WrapPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="OccupationItemTemplate" >
+            <WrapPanel>
+                <TextBlock Text="{Binding SerialNumber, Mode=OneTime}" />
+                <TextBlock Text="{Binding Name, Mode=OneTime}" />
+                <TextBlock Text="{Binding OccupationSkillPoints, Mode=OneTime}" />
+                <TextBlock Text="{Binding MinCredit, Mode=OneTime}" />
+                <TextBlock Text="{Binding MaxCredit, Mode=OneTime}" />
+                <TextBlock Text="{Binding Skills, Mode=OneTime}" />
+                <TextBlock Text="{Binding OccupationType, Mode=OneTime}" />
+                <TextBlock Text="{Binding Description, Mode=OneTime}" />
+            </WrapPanel>
+        </DataTemplate>
     </mah:MetroWindow.Resources>
     <wpfautogrid:AutoGrid Columns="1" Rows="*, *">
         <wpfautogrid:AutoGrid Columns="Auto, *" Rows="*">
-            <RadioButton/>
-            <ListView/>
+            <ListBox x:Name="OccupationTypeListBox" Margin="10" ItemTemplate="{StaticResource OccupationTypeItemTemplate}" SelectionMode="Extended"/>
+            <ListBox x:Name="OccupationsListBox" Margin="10" ItemTemplate="{StaticResource OccupationItemTemplate}" SelectionMode="Single"/>
         </wpfautogrid:AutoGrid>
         <wpfautogrid:AutoGrid Columns="*, *" Rows="*">
             <wpfautogrid:AutoGrid Columns="*, *" Rows="Auto, Auto">
-                <Button Grid.ColumnSpan="2"/>
-                <Button/>
-                <mah:NumericUpDown/>
+                <Button Grid.ColumnSpan="2" x:Name="RandomButton" Content="Random"/>
+                <Button x:Name="GetButton" Content="Get"/>
+                <mah:NumericUpDown x:Name="NumberToGetNumbericUpDown" Interval="1" Minimum="1" />
             </wpfautogrid:AutoGrid>
-            <local:OccupationView/>
+            <local:OccupationView x:Name="OccupationInfoView"/>
         </wpfautogrid:AutoGrid>
     </wpfautogrid:AutoGrid>
 </mah:MetroWindow>

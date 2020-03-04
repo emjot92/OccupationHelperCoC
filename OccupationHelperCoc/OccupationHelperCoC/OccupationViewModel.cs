@@ -1,22 +1,33 @@
 ﻿using Occupations.Classes;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace OccupationHelperCoC
 {
     public class OccupationViewModel : ReactiveObject
     {
-        public string Name { get; }
+        private readonly Occupation _occupation;
 
-        public string Description { get; }
+        public string Name => _occupation.Name;
 
-        public string OccupationSkillPoints { get; }
+        public string Description => _occupation.Description;
 
-        public int MinCredit { get; }
+        public string OccupationSkillPoints => _occupation.OccupationSkillPoints;
 
-        public int MaxCredit { get; }
+        public int MinCredit => _occupation.MinCredit;
 
-        public string Skills { get; }
+        public int MaxCredit => _occupation.MaxCredit;
 
-        public OccupationType OccupationType { get; }
+        public string Skills => _occupation.Skills;
+
+        public OccupationType OccupationType => _occupation.OccupationType;
+
+        [Reactive]
+        public int SerialNumber { get; set; }
+
+        public OccupationViewModel(Occupation occupation)
+        {
+            this._occupation = occupation;
+        }
     }
 }

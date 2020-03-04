@@ -12,6 +12,13 @@ namespace OccupationHelperCoC
         public OccupationView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.Name, v => v.NameTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.Description, v => v.DescriptionTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.OccupationSkillPoints, v => v.OccupationSkillPointsTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.MinCredit, v => v.MinCreditTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.MaxCredit, v => v.MaxCreditTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.Skills, v => v.SkillsTextBlock.Text);
+            this.OneWayBind(ViewModel, vmProperty => vmProperty.OccupationType, v => v.OccupationTypeTextBlock.Text);
         }
 
         public OccupationViewModel ViewModel

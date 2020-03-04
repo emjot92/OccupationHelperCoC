@@ -1,0 +1,34 @@
+﻿<mah:MetroWindow
+        x:Class="OccupationHelperCoC.MainWindow"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OccupationHelperCoC"
+    xmlns:wpfautogrid="clr-namespace:WpfAutoGrid;assembly=WpfAutoGrid"
+    mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <mah:MetroWindow.Resources>
+        <Style TargetType="wpfautogrid:AutoGrid" BasedOn="{StaticResource {x:Type wpfautogrid:AutoGrid}}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="ChildHorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="ChildVerticalAlignment" Value="Stretch"/>
+        </Style>
+    </mah:MetroWindow.Resources>
+    <wpfautogrid:AutoGrid Columns="1" Rows="*, *">
+        <wpfautogrid:AutoGrid Columns="Auto, *" Rows="*">
+            <RadioButton/>
+            <ListView/>
+        </wpfautogrid:AutoGrid>
+        <wpfautogrid:AutoGrid Columns="*, *" Rows="*">
+            <wpfautogrid:AutoGrid Columns="*, *" Rows="Auto, Auto">
+                <Button Grid.ColumnSpan="2"/>
+                <Button/>
+                <mah:NumericUpDown/>
+            </wpfautogrid:AutoGrid>
+            <local:OccupationView/>
+        </wpfautogrid:AutoGrid>
+    </wpfautogrid:AutoGrid>
+</mah:MetroWindow>

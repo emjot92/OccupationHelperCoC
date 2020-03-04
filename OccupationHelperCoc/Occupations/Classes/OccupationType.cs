@@ -1,9 +1,12 @@
-﻿namespace Occupations.Classes
+﻿using System;
+
+namespace Occupations.Classes
 {
+    [Flags]
     public enum OccupationType
     {
-        Standard,
-        Modern,
-        Criminal
+        Standard = 1,
+        Modern = 2,
+        Criminal = 4
     }
 }

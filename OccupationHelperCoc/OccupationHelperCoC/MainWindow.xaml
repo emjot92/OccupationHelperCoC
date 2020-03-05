@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow
+﻿<Window
         x:Class="OccupationHelperCoC.MainWindow"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,9 +7,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OccupationHelperCoC"
     xmlns:wpfautogrid="clr-namespace:WpfAutoGrid;assembly=WpfAutoGrid"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <mah:MetroWindow.Resources>
+    <Window.Resources>
         <Style TargetType="wpfautogrid:AutoGrid">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="ChildHorizontalAlignment" Value="Stretch"/>
@@ -27,6 +28,12 @@
         </DataTemplate>
         <DataTemplate x:Key="OccupationItemTemplate" >
             <WrapPanel>
+                <WrapPanel.Resources>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                        <Setter Property="TextAlignment" Value="Justify"/>
+                    </Style>
+                </WrapPanel.Resources>
                 <TextBlock Text="{Binding SerialNumber, Mode=OneTime}" />
                 <TextBlock Text="{Binding Name, Mode=OneTime}" />
                 <TextBlock Text="{Binding OccupationSkillPoints, Mode=OneTime}" />
@@ -37,19 +44,39 @@
                 <TextBlock Text="{Binding Description, Mode=OneTime}" />
             </WrapPanel>
         </DataTemplate>
-    </mah:MetroWindow.Resources>
-    <wpfautogrid:AutoGrid Columns="1" Rows="*, *">
-        <wpfautogrid:AutoGrid Columns="Auto, *" Rows="*">
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <wpfautogrid:AutoGrid Columns="Auto, *" Rows="*" Grid.Column="0" Grid.Row="0">
             <ListBox x:Name="OccupationTypeListBox" Margin="10" ItemTemplate="{StaticResource OccupationTypeItemTemplate}" SelectionMode="Extended"/>
-            <ListBox x:Name="OccupationsListBox" Margin="10" ItemTemplate="{StaticResource OccupationItemTemplate}" SelectionMode="Single"/>
+            <ListView x:Name="OccupationsListBox" Margin="10" ItemTemplate="{StaticResource OccupationItemTemplate}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="Serial Number" DisplayMemberBinding="{Binding SerialNumber}" Width="100"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                        <GridViewColumn Header="Occupation Skill Points" DisplayMemberBinding="{Binding OccupationSkillPoints}" Width="200"/>
+                        <GridViewColumn Header="Min Credit" DisplayMemberBinding="{Binding MinCredit}" Width="75"/>
+                        <GridViewColumn Header="Max Credit" DisplayMemberBinding="{Binding MaxCredit}" Width="75"/>
+                        <GridViewColumn Header="Skills" DisplayMemberBinding="{Binding Skills}" Width="200"/>
+                        <GridViewColumn Header="Occupation Type" DisplayMemberBinding="{Binding OccupationType}" Width="150"/>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"  Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </wpfautogrid:AutoGrid>
-        <wpfautogrid:AutoGrid Columns="*, *" Rows="*">
+        <wpfautogrid:AutoGrid Columns="*, *" Rows="*" Grid.Column="0" Grid.Row="1">
             <wpfautogrid:AutoGrid Columns="*, *" Rows="Auto, Auto">
                 <Button Grid.ColumnSpan="2" x:Name="RandomButton" Content="Random"/>
                 <Button x:Name="GetButton" Content="Get"/>
-                <mah:NumericUpDown x:Name="NumberToGetNumbericUpDown" Interval="1" Minimum="1" />
+                <xctk:IntegerUpDown Increment="1" Minimum="1" x:Name="NumberToGetIntegerUpDown" ClipValueToMinMax="True"/>
             </wpfautogrid:AutoGrid>
             <local:OccupationView x:Name="OccupationInfoView"/>
         </wpfautogrid:AutoGrid>
-    </wpfautogrid:AutoGrid>
-</mah:MetroWindow>
+    </Grid>
+</Window>

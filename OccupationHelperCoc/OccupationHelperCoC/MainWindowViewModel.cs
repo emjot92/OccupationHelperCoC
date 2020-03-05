@@ -29,7 +29,7 @@ namespace OccupationHelperCoC
         public OccupationViewModel SelectedItem { get; set; }
 
         [Reactive]
-        public double? SelectedNumber { get; set; }
+        public int SelectedNumber { get; set; }
 
         public ReactiveCommand<int, Unit> GetItemWithSerialNumber { get; set; }
 
@@ -64,16 +64,18 @@ namespace OccupationHelperCoC
                             type |= item;
                         }
                     }
-                    bool Predicate(OccupationViewModel vm) => type.Value.HasFlag(vm.OccupationType);
+                    bool Predicate(OccupationViewModel vm) => type.HasValue && type.Value.HasFlag(vm.OccupationType);
                     return (Func<OccupationViewModel, bool>)Predicate;
                 });
-
-            occupationTypes.ObserveOn(RxApp.MainThreadScheduler).Bind(out this._occupationTypes).Subscribe();
-            occupations.Filter(filter).Transform((x, i) =>
+            occupationTypes.AutoRefresh(x => x.IsChecked).Filter(x => x.IsChecked).Throttle(TimeSpan.FromMilliseconds(350)).ObserveOn(RxApp.MainThreadScheduler).Subscribe(x =>
             {
-                x.SerialNumber = i + 1;
-                return x;
-            }).ObserveOn(RxApp.MainThreadScheduler).Bind(out this._occupations).Subscribe();
+                for (int i = 0; i < Occupations.Count; i++)
+                {
+                    Occupations[i].SerialNumber = i + 1; 
+                }
+            });
+            occupationTypes.ObserveOn(RxApp.MainThreadScheduler).Bind(out this._occupationTypes).Subscribe();
+            occupations.Filter(filter).ObserveOn(RxApp.MainThreadScheduler).Bind(out this._occupations).Subscribe();
             occupationTypes.Connect();
             occupations.Connect();
 

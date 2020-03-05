@@ -24,8 +24,8 @@ namespace OccupationHelperCoC
             this.OneWayBind(ViewModel, vm => vm.OccupationTypes, v => v.OccupationTypeListBox.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.Occupations, v => v.OccupationsListBox.ItemsSource);
             this.Bind(ViewModel, vm => vm.SelectedItem, v => v.OccupationsListBox.SelectedItem);
-            this.OneWayBind(ViewModel, vm => vm.Occupations.Count, v => v.NumberToGetNumbericUpDown.Maximum);
-            this.Bind(ViewModel, vm => vm.SelectedNumber, v => v.NumberToGetNumbericUpDown.Value);
+            this.OneWayBind(ViewModel, vm => vm.Occupations.Count, v => v.NumberToGetIntegerUpDown.Maximum);
+            this.Bind(ViewModel, vm => vm.SelectedNumber, v => v.NumberToGetIntegerUpDown.Value);
             this.BindCommand(ViewModel, vm => vm.GetItemWithSerialNumber, v => v.GetButton, x => x.SelectedNumber);
             this.BindCommand(ViewModel, vm => vm.Random, v => v.RandomButton);
         }

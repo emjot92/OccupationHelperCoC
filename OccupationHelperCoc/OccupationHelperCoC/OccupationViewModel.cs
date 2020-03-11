@@ -1,4 +1,4 @@
-﻿using Occupations.Classes;
+﻿using CoCHelpers.Classes;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 

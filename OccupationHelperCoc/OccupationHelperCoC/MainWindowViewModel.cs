@@ -1,8 +1,8 @@
-﻿using DynamicData;
+﻿using CoCHelpers.Classes;
+using CoCHelpers.Interfaces;
+using DynamicData;
 using OccupationHelperCoC.Extensions;
 using OccupationHelperCoC.Helpers;
-using Occupations.Classes;
-using Occupations.Interfaces;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;

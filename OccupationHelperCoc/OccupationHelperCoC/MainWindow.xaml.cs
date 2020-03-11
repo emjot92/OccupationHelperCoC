@@ -1,4 +1,4 @@
-﻿using Occupations.Interfaces;
+﻿using CoCHelpers.Interfaces;
 using ReactiveUI;
 using Splat;
 using System.Reactive.Linq;
